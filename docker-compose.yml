@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: people_review_db
+    environment:
+      POSTGRES_USER: dev_user
+      POSTGRES_PASSWORD: dev_password
+      POSTGRES_DB: dev_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - my_network
+
+  adminer:  # Service Adminer pour gérer PostgreSQL via une interface web
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"  # Expose Adminer sur le port 8080
+    depends_on:
+      - db  # Adminer démarre après PostgreSQL
+    networks:
+      - my_network
+
+volumes:
+  pg_data:
+
+networks:
+  my_network:
+    driver: bridge
