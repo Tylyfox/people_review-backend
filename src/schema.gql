@@ -1,0 +1,12 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Gender {
+  id: String!
+  name: String!
+}
+
+type Query {
+  genders: [Gender!]!
+}

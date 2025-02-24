@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { User } from 'src/entities/user.entity';
 import { Weather } from 'src/entities/weather.entity';
 import { KnowledgeLevel } from 'src/entities/knowledge_level.entity';
+import { Gender } from 'src/gender/gender.entity';
 
 export const databaseConfig = (configService: ConfigService): TypeOrmModuleOptions => ({
   type: 'postgres',
@@ -11,7 +12,7 @@ export const databaseConfig = (configService: ConfigService): TypeOrmModuleOptio
   username: configService.get<string>('DB_USERNAME'),
   password: configService.get<string>('DB_PASSWORD'),
   database: configService.get<string>('DB_NAME'),
-  entities: [User, Weather, KnowledgeLevel],
+  entities: [User, Weather, KnowledgeLevel, Gender],
   synchronize: configService.get<string>('NODE_ENV') !== 'production', 
   autoLoadEntities: true,
 });

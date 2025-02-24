@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { BaseSeeder } from "../base.seeder";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Gender } from "src/entities/gender.entity";
+import { Gender } from "src/gender/gender.entity";
 
 @Injectable()
 export class GenderSeeder extends BaseSeeder {
