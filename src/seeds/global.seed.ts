@@ -13,7 +13,6 @@ export class GlobalSeeder {
     private readonly knowledgeLevelSeeder: KnowledgeLevelSeeder,
     private readonly genderSeeder: GenderSeeder,
   ) {
-    // Collecte tous les seeders spécifiques dans un tableau
     this.seeders = [this.weatherSeeder, this.knowledgeLevelSeeder, this.genderSeeder];
   }
 

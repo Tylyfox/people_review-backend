@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Weather } from '../../entities/weather.entity';  // Assurez-vous du bon chemin
+import { Weather } from '../../features/weather/weather.entity';  // Assurez-vous du bon chemin
 import { BaseSeeder } from '../base.seeder';
 
 @Injectable()

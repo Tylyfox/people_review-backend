@@ -2,11 +2,40 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Weather {
+  id: ID!
+  rating: Float!
+  description: String!
+}
+
+type KnowledgeLevel {
+  id: ID!
+  rating: Float!
+  name: String!
+  description: String!
+}
+
 type Gender {
-  id: String!
+  id: ID!
   name: String!
 }
 
 type Query {
   genders: [Gender!]!
+  weathers: [Weather!]!
+  knowledge_levels: [KnowledgeLevel!]!
+  users: [User!]!
 }

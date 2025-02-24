@@ -1,9 +1,9 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { User } from 'src/entities/user.entity';
-import { Weather } from 'src/entities/weather.entity';
-import { KnowledgeLevel } from 'src/entities/knowledge_level.entity';
-import { Gender } from 'src/gender/gender.entity';
+import { User } from 'src/features/user/user.entity';
+import { Weather } from 'src/features/weather/weather.entity';
+import { KnowledgeLevel } from 'src/features/knowledge_level/knowledge_level.entity';
+import { Gender } from 'src/features/gender/gender.entity';
 
 export const databaseConfig = (configService: ConfigService): TypeOrmModuleOptions => ({
   type: 'postgres',

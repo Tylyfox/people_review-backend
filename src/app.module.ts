@@ -5,11 +5,9 @@ import {databaseConfig} from './config/database.config';
 import { SeederModule } from './seeds/modules/seeder.module';
 import { GlobalSeeder } from './seeds';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { GenderModule } from './gender/gender.module';
-import { join } from 'path';
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-
+import { ApolloDriverConfig } from '@nestjs/apollo';
+import { graphqlConfig } from './config/graphql.config';
+import { FeaturesModule } from './features/features.module';
 
 @Module({
   imports: [
@@ -22,17 +20,11 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       inject: [ConfigService],
       useFactory: databaseConfig,
     }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      playground: false,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true,
-      introspection: true,
-      plugins: [ApolloServerPluginLandingPageLocalDefault()],
-    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>(graphqlConfig),
     SeederModule,
-    GenderModule
+    FeaturesModule,
   ],
+ 
 })
 
 export class AppModule implements OnModuleInit {

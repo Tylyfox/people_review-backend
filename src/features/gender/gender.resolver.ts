@@ -1,7 +1,7 @@
 
 import { Query, Resolver } from "@nestjs/graphql";
-import { Gender } from "src/gender/gender.entity";
-import { GenderService } from "src/gender/gender.service";
+import { Gender } from "src/features/gender/gender.entity";
+import { GenderService } from "src/features/gender/gender.service";
 
 
 @Resolver()

@@ -4,7 +4,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 @Entity()
 @ObjectType()
 export class Gender {
-    @Field()
+    @Field(() => ID)
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

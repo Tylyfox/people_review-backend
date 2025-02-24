@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { KnowledgeLevel } from '../../entities/knowledge_level.entity';  // Assurez-vous du bon chemin
+import { KnowledgeLevel } from '../../features/knowledge_level/knowledge_level.entity';  // Assurez-vous du bon chemin
 import { BaseSeeder } from '../base.seeder';
 
 @Injectable()
