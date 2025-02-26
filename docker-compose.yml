@@ -1,18 +1,22 @@
 services:
   db:
     image: postgres:latest
+    restart: always
     container_name: people_review_db
-    environment:
-      POSTGRES_USER: dev_user
-      POSTGRES_PASSWORD: dev_password
-      POSTGRES_DB: dev_db
+    env_file:
+      - .env.local
     ports:
       - '5432:5432'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d dev_db -U dev_user"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
       - my_network
-
   adminer:  # Service Adminer pour gérer PostgreSQL via une interface web
     image: adminer
     container_name: adminer
@@ -23,7 +27,30 @@ services:
       - db  # Adminer démarre après PostgreSQL
     networks:
       - my_network
-
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: people_review_backend
+    env_file:
+      - .env.local
+    ports:
+      - '3000:3000'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - my_network
+    volumes:
+      - .:/app
+      - /app/node_modules
+    healthcheck:
+      test: 
+        - CMD-SHELL
+        - 'curl -f http://backend-dev:3000/graphql?query=%7B__typename%7D -H ''Apollo-Require-Preflight: true'' || exit 1'
+      interval: 10s
+      timeout: 30s
+      retries: 5
 volumes:
   pg_data:
 
