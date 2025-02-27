@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Weather } from '../../features/weather/weather.entity';  // Assurez-vous du bon chemin
+import { Weather } from '../../features/weather/weather.entity'; // Assurez-vous du bon chemin
 import { BaseSeeder } from '../base.seeder';
 
 @Injectable()
@@ -24,15 +24,16 @@ export class WeatherSeeder extends BaseSeeder {
     ];
 
     const countInDb = await this.weatherRepository.count();
-    
+
     if (countInDb === weathers.length) {
       // Vérifier si les données ont changé
       const existingWeathers = await this.weatherRepository.find();
-      const allMatch = weathers.every(weather =>
-        existingWeathers.some(existingWeather =>
-          existingWeather.rating === weather.rating &&
-          existingWeather.description === weather.description
-        )
+      const allMatch = weathers.every((weather) =>
+        existingWeathers.some(
+          (existingWeather) =>
+            existingWeather.rating === weather.rating &&
+            existingWeather.description === weather.description,
+        ),
       );
 
       if (allMatch) {

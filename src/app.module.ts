@@ -1,7 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {databaseConfig} from './config/database.config';
+import { databaseConfig } from './config/database.config';
 import { SeederModule } from './seeds/modules/seeder.module';
 import { GlobalSeeder } from './seeds';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -24,9 +24,7 @@ import { FeaturesModule } from './features/features.module';
     SeederModule,
     FeaturesModule,
   ],
- 
 })
-
 export class AppModule implements OnModuleInit {
   constructor(private readonly globalSeeder: GlobalSeeder) {}
 

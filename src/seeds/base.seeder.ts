@@ -1,3 +1,3 @@
 export abstract class BaseSeeder {
-    abstract seed(): Promise<void>;
+  abstract seed(): Promise<void>;
 }
