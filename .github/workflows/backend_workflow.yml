@@ -7,7 +7,22 @@ on:
       - dev
 
 jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if branch name matches pattern
+        run: |
+          BRANCH_NAME="${GITHUB_HEAD_REF}"
+          if [[ ! "$BRANCH_NAME" =~ ^feature/.*$ ]]; then
+            echo "Error: Branch name must start with 'feature/'"
+            exit 1
+          fi
   lint:
+    needs: check-branch-name
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
