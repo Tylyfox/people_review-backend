@@ -12,6 +12,7 @@ export class GenderSeeder extends BaseSeeder {
     ) {
         super();
     }
+    
 
     async seed(): Promise<void> {
         const genders = [
