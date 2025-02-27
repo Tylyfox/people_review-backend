@@ -1,16 +1,16 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Weather } from "./weather.entity";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Weather } from './weather.entity';
 
 @Injectable()
 export class WeatherService {
-    constructor(
-        @InjectRepository(Weather)
-        private readonly weatherRepository: Repository<Weather>
-    ) {}
+  constructor(
+    @InjectRepository(Weather)
+    private readonly weatherRepository: Repository<Weather>,
+  ) {}
 
-    async findAll(): Promise<Weather[]> {
-        return this.weatherRepository.find();
-    }
+  async findAll(): Promise<Weather[]> {
+    return this.weatherRepository.find();
+  }
 }

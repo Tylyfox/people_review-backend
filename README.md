@@ -4,7 +4,7 @@
 
 ## Description
 
-La description du projet 
+La description du projet
 
 ## Project setup
 
@@ -20,25 +20,31 @@ Run the project in development mode to automatically rebuild the app when files 
 # Development mode
 $ yarn run start:dev
 ```
+
 ```bash
 # Production mode
 $ yarn run start:dev
 ```
+
 ```bash
 # Watch mode
 $ yarn run start:dev
 ```
+
 ## Docker setup
 
 This project comes with a Dockerfile and a docker-compose.yml to allow easy containerization. Follow these steps to set up and run the project using Docker:
+
 ```bash
 # Build the Docker containers
 $ docker compose build
 ```
+
 ```bash
 # Start the services (backend, database, adminer)
 $ docker compose up
 ```
+
 ## Environment variables
 
 To configure the application, create a **.env.local** file in the root of your project with the following environment variables:
@@ -50,6 +56,7 @@ DB_USERNAME=dev_user
 DB_PASSWORD=dev_password
 DB_NAME=dev_db
 ```
+
 Make sure to update these values as per your configuration.
 
 ## Deployment

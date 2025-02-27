@@ -13,7 +13,11 @@ export class GlobalSeeder {
     private readonly knowledgeLevelSeeder: KnowledgeLevelSeeder,
     private readonly genderSeeder: GenderSeeder,
   ) {
-    this.seeders = [this.weatherSeeder, this.knowledgeLevelSeeder, this.genderSeeder];
+    this.seeders = [
+      this.weatherSeeder,
+      this.knowledgeLevelSeeder,
+      this.genderSeeder,
+    ];
   }
 
   async seed(): Promise<void> {

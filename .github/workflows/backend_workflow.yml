@@ -7,15 +7,6 @@ on:
       - dev
 
 jobs:
-  name: Backend Workflow
-
-on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited]
-    branches:
-      - dev
-
-jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -35,8 +26,9 @@ jobs:
 
       - name: Run Prettier (Check mode)
         run: yarn prettier --check .
+
   docker:
-    need: lint
+    needs: lint # <- Correction ici (needs au lieu de need)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
