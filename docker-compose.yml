@@ -8,7 +8,7 @@ services:
     ports:
       - '5432:5432'
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d dev_db -U dev_user"]
+      test: ['CMD-SHELL', 'pg_isready -d dev_db -U dev_user']
       interval: 1m30s
       timeout: 30s
       retries: 5
@@ -17,14 +17,14 @@ services:
       - pg_data:/var/lib/postgresql/data
     networks:
       - my_network
-  adminer:  # Service Adminer pour gérer PostgreSQL via une interface web
+  adminer: # Service Adminer pour gérer PostgreSQL via une interface web
     image: adminer
     container_name: adminer
     restart: always
     ports:
-      - "8080:8080"  # Expose Adminer sur le port 8080
+      - '8080:8080' # Expose Adminer sur le port 8080
     depends_on:
-      - db  # Adminer démarre après PostgreSQL
+      - db # Adminer démarre après PostgreSQL
     networks:
       - my_network
   backend:
@@ -45,9 +45,9 @@ services:
       - .:/app
       - /app/node_modules
     healthcheck:
-      test: 
+      test:
         - CMD-SHELL
-        - 'curl -f http://backend-dev:3000/graphql?query=%7B__typename%7D -H ''Apollo-Require-Preflight: true'' || exit 1'
+        - "curl -f http://backend-dev:3000/graphql?query=%7B__typename%7D -H 'Apollo-Require-Preflight: true' || exit 1"
       interval: 10s
       timeout: 30s
       retries: 5

@@ -28,7 +28,7 @@ jobs:
         run: yarn prettier --check .
 
   docker:
-    needs: lint  # <- Correction ici (needs au lieu de need)
+    needs: lint # <- Correction ici (needs au lieu de need)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
