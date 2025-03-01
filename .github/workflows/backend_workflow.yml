@@ -1,3 +1,23 @@
+# This GitHub Actions workflow is designed for the backend of the PeopleReview project.
+# It triggers on pull requests to the 'dev' branch and consists of three jobs: check-branch-name, lint, and docker.
+
+# The 'check-branch-name' job ensures that the branch name follows the pattern 'feature/*'.
+# If the branch name does not match the pattern, the job fails and the workflow stops.
+
+# The 'lint' job runs after 'check-branch-name' and performs the following steps:
+# - Checks out the repository.
+# - Sets up Node.js version 20.
+# - Installs dependencies using yarn.
+# - Runs ESLint to check for linting errors in TypeScript files.
+# - Runs Prettier in check mode to ensure code formatting consistency.
+
+# The 'docker' job runs after 'lint' and performs the following steps:
+# - Checks out the repository.
+# - Sets up QEMU for cross-platform builds.
+# - Sets up Docker Buildx for advanced build capabilities.
+# - Checks if the Dockerfile or dependencies (package.json, yarn.lock) have changed.
+# - Logs in to Docker Hub if changes are detected.
+# - Builds and pushes the Docker image to Docker Hub if changes are detected.
 name: Backend Workflow
 
 on:
@@ -7,39 +27,46 @@ on:
       - dev
 
 jobs:
-  lint:
+  check-branch-name:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # This step checks if the current branch name matches a specified pattern.
+      - name: Check if branch name matches pattern
+        run: |
+          BRANCH_NAME="${GITHUB_HEAD_REF}"
+          if [[ ! "$BRANCH_NAME" =~ ^feature/.*$ ]]; then
+            echo "Error: Branch name must start with 'feature/'"
+            exit 1
+          fi
+  lint:
+    needs: check-branch-name
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-
       - name: Run ESLint
         run: yarn eslint . --ext .ts
-
       - name: Run Prettier (Check mode)
         run: yarn prettier --check .
-
   docker:
     needs: lint # <- Correction ici (needs au lieu de need)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
       - name: Check if Dockerfile or dependencies changed
         id: changes
         uses: dorny/paths-filter@v2
@@ -49,14 +76,12 @@ jobs:
               - 'Dockerfile'
               - 'package.json'
               - 'yarn.lock'
-
       - name: Login to Docker Hub
         if: steps.changes.outputs.docker == 'true'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       - name: Build and push Docker image
         if: steps.changes.outputs.docker == 'true'
         uses: docker/build-push-action@v5
