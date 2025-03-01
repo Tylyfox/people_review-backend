@@ -4,6 +4,8 @@ import { User } from 'src/features/user/user.entity';
 import { Weather } from 'src/features/weather/weather.entity';
 import { KnowledgeLevel } from 'src/features/knowledge_level/knowledge_level.entity';
 import { Gender } from 'src/features/gender/gender.entity';
+import { UserCompany } from 'src/features/user_company/user-company.entity';
+import { Company } from 'src/features/company/company.entity';
 
 export const databaseConfig = (
   configService: ConfigService,
@@ -14,7 +16,7 @@ export const databaseConfig = (
   username: configService.get<string>('DB_USERNAME'),
   password: configService.get<string>('DB_PASSWORD'),
   database: configService.get<string>('DB_NAME'),
-  entities: [User, Weather, KnowledgeLevel, Gender],
+  entities: [User, Weather, KnowledgeLevel, Gender, Company, UserCompany],
   synchronize: configService.get<string>('NODE_ENV') !== 'production',
   autoLoadEntities: true,
 });

@@ -2,10 +2,17 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type Company {
   id: ID!
-  firstName: String!
-  lastName: String!
+  name: String!
+  userCompanies: [UserCompany!]!
+}
+
+type UserCompany {
+  id: ID!
+  user: User!
+  company: Company!
+  role: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -14,6 +21,15 @@ type User {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userCompanies: [UserCompany!]!
+}
 
 type Weather {
   id: ID!
@@ -38,4 +54,6 @@ type Query {
   weathers: [Weather!]!
   knowledge_levels: [KnowledgeLevel!]!
   users: [User!]!
+  companies: [Company!]!
+  userCompanies: [UserCompany!]!
 }
